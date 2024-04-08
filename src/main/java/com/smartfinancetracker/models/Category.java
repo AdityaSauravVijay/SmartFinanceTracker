@@ -1,4 +1,4 @@
-package com.smartfinacetracker.models;
+package com.smartfinancetracker.models;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

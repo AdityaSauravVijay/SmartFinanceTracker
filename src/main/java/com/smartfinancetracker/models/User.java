@@ -1,4 +1,4 @@
-package com.smartfinacetracker.models;
+package com.smartfinancetracker.models;
 
 public class User {
 
