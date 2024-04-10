@@ -1,5 +1,6 @@
 package com.smartfinancetracker.models;
 
+import lombok.Data;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Component;
 import jakarta.persistence.Entity;
@@ -9,8 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 
-
-@Component
+@Data
 @Entity
 @Table(name="users")
 
