@@ -1,13 +1,26 @@
 package com.smartfinancetracker.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.smartfinancetracker.models.User;
+import com.smartfinancetracker.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/users")
 public class UserController {
 
-    @GetMapping("/greet")
-    public String GreetMessage() {
-        return "Hello World";
+    private UserService userService;
+
+    public UserController(UserService userService) {
+        super();
+        this.userService = userService;
+    }
+
+    //Register api user
+    @PostMapping
+    public ResponseEntity<User> registerUser(@RequestBody User user) {
+        return new ResponseEntity<User>(userService.registerUser(user), HttpStatus.CREATED);
     }
 }
