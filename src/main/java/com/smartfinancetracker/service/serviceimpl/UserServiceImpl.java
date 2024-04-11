@@ -22,4 +22,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public User loginUser(User user) {
+       User existingUser =  userRepository.findByEmail(user.getEmail());
+       if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
+           return existingUser;
+       }
+       return null;
+    }
+
 }

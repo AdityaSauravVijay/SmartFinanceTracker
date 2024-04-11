@@ -21,13 +21,16 @@ public class User {
     @Column(name = "user_id")
     private long userId;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = true, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = true)
     private String password;
 
-    @Column(name = "monthly_income", nullable = false)
+    @Column(name = "role", nullable = true)
+    private String role;
+
+    @Column(name = "monthly_income", nullable = true)
     private double monthlyIncome;
 
     // Default constructor needed by JPA
@@ -35,11 +38,12 @@ public class User {
     }
 
     // Your constructor
-    public User(String email, String password, long userId, double monthlyIncome) {
+    public User(String email, String password, long userId, double monthlyIncome, String role) {
         this.email = email;
         this.password = password;
         this.userId = userId;
         this.monthlyIncome = monthlyIncome;
+        this.role = role;
     }
 
     // Getters and setters
@@ -73,6 +77,14 @@ public class User {
 
     public void setMonthlyIncome(double monthlyIncome) {
         this.monthlyIncome = monthlyIncome;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
 
