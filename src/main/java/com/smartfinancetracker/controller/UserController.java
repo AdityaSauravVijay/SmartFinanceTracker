@@ -23,4 +23,9 @@ public class UserController {
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         return new ResponseEntity<User>(userService.registerUser(user), HttpStatus.CREATED);
     }
+
+    @GetMapping
+    public ResponseEntity<User> loginUser(@RequestBody User user) {
+        return new ResponseEntity<User>(userService.loginUser(user), HttpStatus.OK);
+    }
 }
