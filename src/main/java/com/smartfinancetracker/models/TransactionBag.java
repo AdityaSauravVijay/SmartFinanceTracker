@@ -1,6 +1,7 @@
 package com.smartfinancetracker.models;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class TransactionBag<T> implements BagInterface<T>{
 
@@ -74,6 +75,13 @@ public class TransactionBag<T> implements BagInterface<T>{
 
         return result;
     } // end toArray
+
+    /** Retrieves all entries that are in this bag as a List.
+     @return A List containing all the entries in this bag. */
+    public List<T> toList() {
+        checkInitialization();
+        return Arrays.asList(Arrays.copyOf(transactions, numberOfTransactions));
+    } // end toList
 
     /** Sees whether this bag is empty.
      @return  True if this bag is empty, or false if not. */
@@ -222,17 +230,4 @@ public class TransactionBag<T> implements BagInterface<T>{
                     "to call an ArrayBag method.");
     } // end checkInitialization
 
-    public T getTopBook() {
-
-        T result = null;
-
-        if(numberOfTransactions>0 && !isEmpty()) {
-
-            result =  transactions[numberOfTransactions-1];
-
-        }
-
-        return result;
-
-    }
 }
