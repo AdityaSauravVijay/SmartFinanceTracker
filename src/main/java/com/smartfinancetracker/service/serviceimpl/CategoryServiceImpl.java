@@ -6,9 +6,7 @@ import com.smartfinancetracker.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -40,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
     public ArrayList<Category> bindCategories(Category category){
         ArrayList<Category> finalCategories = new ArrayList<>();
         finalCategories.add(category);
-        category.subCategories.forEach(categoryList -> {
+        category.getSubCategories().forEach(categoryList -> {
             finalCategories.add(categoryList);
         });
         return finalCategories;
@@ -51,16 +49,46 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(() -> new Exception("Category not found"));
 
         // Update fields
-        category.setCategoryName(updateRequest.categoryName);
-        category.setParentCategoryId(updateRequest.parentCategoryId);
-        category.setBudget(updateRequest.budget);
-        category.setUserId(updateRequest.userId);
+        category.setCategoryName(updateRequest.getCategoryName());
+        category.setParentCategoryId(updateRequest.getParentCategoryId());
+        category.setBudget(updateRequest.getBudget());
+        category.setUserId(updateRequest.getUserId());
         // Update other fields as needed
 
         return categoryRepository.save(category);
     }
 
     public void deleteCategory(Category categoryToBeDeleted){
-        categoryRepository.deleteById((long)categoryToBeDeleted.categoryId);
+        categoryRepository.deleteById((long) categoryToBeDeleted.getCategoryId());
+    }
+
+    public Category buildCategoryTree(List<Category> categories) {
+        Map<Integer, Category> categoryMap = new HashMap<>();
+        Category root = null;
+
+
+        for (Category category : categories) {
+            categoryMap.put(category.getCategoryId(), category);
+            category.setSubCategories(new ArrayList<>());
+        }
+
+        for (Category category : categories) {
+            if (category.getParentCategoryId() == 0) {
+                root = category;
+            } else {
+                Category parent = categoryMap.get(category.getParentCategoryId());
+                if (parent != null) {
+                    parent.getSubCategories().add(category);
+                }
+            }
+        }
+
+        return root; // Return the root of the tree
+    }
+    @Override
+    public Category getAllACategories(){
+        List<Category> allCategories = categoryRepository.findAll();
+        Category rootCategory = buildCategoryTree(allCategories);
+        return rootCategory;
     }
 }

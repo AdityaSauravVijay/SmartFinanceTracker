@@ -53,4 +53,10 @@ public class CategoryController {
         categoryService.deleteCategory(updateRequest);
         return ResponseEntity.ok("Deleted");
     }
+
+    @GetMapping
+    public ResponseEntity<Category> getAllCategories(){
+        Category allCategories = categoryService.getAllACategories();
+        return ResponseEntity.status(HttpStatus.OK).body(allCategories);
+    }
 }
