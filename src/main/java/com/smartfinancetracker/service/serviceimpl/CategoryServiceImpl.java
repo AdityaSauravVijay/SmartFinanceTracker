@@ -62,19 +62,21 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.deleteById((long) categoryToBeDeleted.getCategoryId());
     }
 
-    public Category buildCategoryTree(List<Category> categories) {
+    public List<Category> buildCategoryTree(List<Category> categories) {
         Map<Integer, Category> categoryMap = new HashMap<>();
-        Category root = null;
+        List<Category> roots = new ArrayList<>();
 
-
+        // First, map all categories by their ID for quick access.
         for (Category category : categories) {
             categoryMap.put(category.getCategoryId(), category);
+            // Initialize subcategories list
             category.setSubCategories(new ArrayList<>());
         }
 
+        // Set up the parent-child relationships.
         for (Category category : categories) {
             if (category.getParentCategoryId() == 0) {
-                root = category;
+                roots.add(category); // This category is one of the roots of the trees
             } else {
                 Category parent = categoryMap.get(category.getParentCategoryId());
                 if (parent != null) {
@@ -83,12 +85,12 @@ public class CategoryServiceImpl implements CategoryService {
             }
         }
 
-        return root; // Return the root of the tree
+        return roots; // Return the list of root categories
     }
     @Override
-    public Category getAllACategories(){
+    public List<Category> getAllACategories(){
         List<Category> allCategories = categoryRepository.findAll();
-        Category rootCategory = buildCategoryTree(allCategories);
+        List<Category> rootCategory = buildCategoryTree(allCategories);
         return rootCategory;
     }
 }
