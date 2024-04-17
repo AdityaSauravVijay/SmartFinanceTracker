@@ -1,12 +1,14 @@
 package com.smartfinancetracker.controller;
 
 import com.smartfinancetracker.models.Transaction;
+import com.smartfinancetracker.models.TransactionBag;
 import com.smartfinancetracker.service.TransactionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,10 +53,25 @@ public class TransactionController {
         return ResponseEntity.status(HttpStatus.OK).body(itemList);
     }
 
-    @GetMapping("/sortByDate")
-    public ResponseEntity<List<Transaction>> sortTransactionsByDate() {
-        return new ResponseEntity<List<Transaction>>(transactionService.sortTransactions(), HttpStatus.OK);
+    @GetMapping("/sortByDate/{userId}")
+    public ResponseEntity<List<Transaction>> sortTransactionsByDate(@PathVariable Long userId) {
+        return new ResponseEntity<List<Transaction>>(transactionService.sortTransactionsByDate(userId), HttpStatus.OK);
 
+    }
+
+    @PostMapping("/addToBag")
+    public ResponseEntity<?> addTransactionsToBagAndSave(@RequestBody List<Transaction> transactions) {
+        TransactionBag transactionBag = new TransactionBag();
+
+        // Add transactions to the bag
+        for (Transaction transaction : transactions) {
+            transactionBag.add(transaction);
+        }
+
+        transactionService.saveTransactions(new ArrayList<>(transactionBag.toList()));
+
+
+        return ResponseEntity.ok("Transactions added successfully");
     }
 
 //    @PostMapping

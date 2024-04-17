@@ -66,8 +66,8 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.save(category);
     }
 
-    public void deleteCategory(Category categoryToBeDeleted){
-        categoryRepository.deleteById((long) categoryToBeDeleted.getCategoryId());
+    public void deleteCategory(Long categoryId){
+        categoryRepository.deleteById(categoryId);
     }
 
     public List<Category> buildCategoryTree(List<Category> categories) {

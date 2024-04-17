@@ -43,6 +43,7 @@ public class TransactionServiceImpl implements TransactionService {
         item.setDescription(transaction.getDescription());
         item.setType(transaction.getType());
         item.setDate(transaction.getDate());
+        item.setCategoryId(transaction.getCategoryId());
 
         return transactionRepository.save(item);
     }
@@ -63,8 +64,8 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> sortTransactions() {
-        List<Transaction> sortedTransactionsbyDate = transactionRepository.findAll();
+    public List<Transaction> sortTransactionsByDate(Long userId) {
+        List<Transaction> sortedTransactionsbyDate = transactionRepository.findByUserId(userId);
         mergeSortTransactionsByDate(sortedTransactionsbyDate);
         return sortedTransactionsbyDate;
     }
