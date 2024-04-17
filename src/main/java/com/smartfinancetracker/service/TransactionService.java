@@ -20,4 +20,6 @@ public interface TransactionService {
     public List<Transaction> getAllTransactions(Long userId);
 
     public Optional<Transaction> getTransaction(Long transactionId);
+
+    public List<Transaction> sortTransactions();
 }

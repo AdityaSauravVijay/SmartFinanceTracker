@@ -51,6 +51,12 @@ public class TransactionController {
         return ResponseEntity.status(HttpStatus.OK).body(itemList);
     }
 
+    @GetMapping("/sortByDate")
+    public ResponseEntity<List<Transaction>> sortTransactionsByDate() {
+        return new ResponseEntity<List<Transaction>>(transactionService.sortTransactions(), HttpStatus.OK);
+
+    }
+
 //    @PostMapping
 //    public ResponseEntity<ArrayList<Transaction>> postTransactions(@RequestBody Transaction transactions) {
 //        ArrayList<Transaction> itemList = transactionService.saveTransactions(transactions);
