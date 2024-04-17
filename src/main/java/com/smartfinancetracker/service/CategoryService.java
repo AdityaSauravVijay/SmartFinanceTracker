@@ -3,6 +3,7 @@ package com.smartfinancetracker.service;
 import com.smartfinancetracker.models.Category;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public interface CategoryService {
@@ -15,5 +16,5 @@ public interface CategoryService {
 
     public void deleteCategory(Category categoryToBeDeleted);
 
-    public Category getAllACategories();
+    public List<Category> getAllACategories();
 }
