@@ -17,4 +17,6 @@ public interface CategoryService {
     public void deleteCategory(Category categoryToBeDeleted);
 
     public List<Category> getAllACategories();
+
+    List<Category> fetchCategoriesOfUser(long userId);
 }
