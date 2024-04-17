@@ -59,4 +59,10 @@ public class CategoryController {
         List<Category> allCategories = categoryService.getAllACategories();
         return ResponseEntity.status(HttpStatus.OK).body(allCategories);
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Category>> fetchCategoriesOfUser(@PathVariable long userId){
+        List<Category> allCategories = categoryService.fetchCategoriesOfUser(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(allCategories);
+    }
 }

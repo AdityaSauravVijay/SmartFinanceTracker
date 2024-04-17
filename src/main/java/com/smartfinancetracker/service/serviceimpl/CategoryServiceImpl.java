@@ -93,4 +93,10 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> rootCategory = buildCategoryTree(allCategories);
         return rootCategory;
     }
+
+
+    @Override
+    public List<Category> fetchCategoriesOfUser(long userId){
+        return buildCategoryTree(categoryRepository.findByuserId(userId));
+    }
 }
