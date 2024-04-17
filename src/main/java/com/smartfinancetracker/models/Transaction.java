@@ -1,20 +1,42 @@
 package com.smartfinancetracker.models;
 
+import jakarta.persistence.*;
+import lombok.Data;
+
 import java.time.LocalDate;
 
+@Data
+@Entity
+@Table(name = "transactions")
 public class Transaction {
-    public String transactionId;
-    public String userId;
-    public String categoryId; // Nullable if not categorized
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
+    public Long transactionId;
+    @Column(name = "user_id", nullable = false)
+    public Long userId;
+    @Column(name = "category_id", nullable = true)
+    public int categoryId; // Nullable if not categorized
+
+    @Column(name = "transactionName", nullable = false)
+    public String name;
+    @Column(name = "amount", nullable = false)
     public double amount;
+    @Column(name = "date", nullable = false)
     public LocalDate date; // Use LocalDate in real applications
+    @Column(name = "type", nullable = false)
     public String type; // "Income" or "Expense"
+    @Column(name = "description", nullable = true)
     public String description;
 
-    public Transaction(String transactionId, String userId, String categoryId, double amount, LocalDate date, String type, String description) {
+    public Transaction() {
+    }
+
+    public Transaction(Long transactionId, Long userId, int categoryId,String name, double amount, LocalDate date, String type, String description) {
         this.transactionId = transactionId;
         this.userId = userId;
         this.categoryId = categoryId;
+        this.name = name;
         this.amount = amount;
         this.date = date;
         this.type = type;
@@ -22,14 +44,17 @@ public class Transaction {
     }
 
     // Getters and Setters
-    public String getTransactionId() { return transactionId; }
-    public void setTransactionId(String transactionId) { this.transactionId = transactionId; }
+    public Long getTransactionId() { return transactionId; }
+    public void setTransactionId(Long transactionId) { this.transactionId = transactionId; }
 
-    public String getUserId() { return userId; }
-    public void setUserId(String userId) { this.userId = userId; }
+    public Long getUserId() { return userId; }
+    public void setUserId(Long userId) { this.userId = userId; }
 
-    public String getCategoryId() { return categoryId; }
-    public void setCategoryId(String categoryId) { this.categoryId = categoryId; }
+    public int getCategoryId() { return categoryId; }
+    public void setCategoryId(int categoryId) { this.categoryId = categoryId; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
     public double getAmount() { return amount; }
     public void setAmount(double amount) { this.amount = amount; }
@@ -38,6 +63,7 @@ public class Transaction {
     public void setDate(LocalDate date) { this.date = date; }
 
     public String getType() { return type; }
+
     public void setType(String type) { this.type = type; }
 
     public String getDescription() { return description; }

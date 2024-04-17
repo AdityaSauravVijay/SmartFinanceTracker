@@ -24,6 +24,9 @@ public class User {
     @Column(name = "email", nullable = true, unique = true)
     private String email;
 
+    @Column(name = "name", nullable = true)
+    private String name;
+
     @Column(name = "password", nullable = true)
     private String password;
 
@@ -38,12 +41,13 @@ public class User {
     }
 
     // Your constructor
-    public User(String email, String password, long userId, double monthlyIncome, String role) {
+    public User(String email, String password, long userId, double monthlyIncome, String role, String name) {
         this.email = email;
         this.password = password;
         this.userId = userId;
         this.monthlyIncome = monthlyIncome;
         this.role = role;
+        this.name = name;
     }
 
     // Getters and setters
@@ -85,6 +89,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
 
