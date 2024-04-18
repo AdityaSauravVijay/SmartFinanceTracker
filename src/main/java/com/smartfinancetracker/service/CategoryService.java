@@ -14,7 +14,7 @@ public interface CategoryService {
 
     public Category updateCategory(Category updateRequest) throws Exception;
 
-    public void deleteCategory(Category categoryToBeDeleted);
+    public void deleteCategory(Long categoryId);
 
     public List<Category> getAllACategories();
 

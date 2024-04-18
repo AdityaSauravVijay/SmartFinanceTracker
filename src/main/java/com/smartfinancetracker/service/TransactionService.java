@@ -21,5 +21,5 @@ public interface TransactionService {
 
     public Optional<Transaction> getTransaction(Long transactionId);
 
-    public List<Transaction> sortTransactions();
+    public List<Transaction> sortTransactionsByDate(Long userId);
 }
